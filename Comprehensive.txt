@@ -1,0 +1,88 @@
+// This program tests everything (well at least some things)
+// It generates the first num prime numbers
+subr 0 main
+decl num int
+decl count int
+decl i int
+decl j int
+decl tmp int
+
+pushi 50
+pushi 3
+pushi 2
+pushi 2
+popv count
+popv j
+popv i
+popv num
+
+printi 2
+
+// While count < num
+lab for1init
+pushi 2
+popv count
+lab for1
+pushv count
+pushv num
+cmpgt
+jmpc exit
+
+// While j < i
+lab for2init
+pushi 2
+popv j
+lab for2
+pushv j
+pushv i
+cmpe
+jmpc modexit2
+
+pushv i
+popv tmp
+
+lab mod
+pushv tmp
+pushi 0
+cmplt
+jmpc modexit1
+pushv tmp
+pushi 0
+cmpe
+jmpc modexit2
+pushv tmp
+pushv j
+sub
+popv tmp
+jmp mod
+
+lab modexit1
+pushv j
+pushi 1
+add
+popv j
+jmp for2
+
+lab modexit2
+pushv i
+pushv j
+cmpe
+jmpc modtrue
+jmp modfalse
+
+lab modtrue
+printv i
+pushv count
+pushi 1
+add
+popv count
+
+lab modfalse
+pushv i
+pushi 1
+add
+popv i
+jmp for1
+
+lab exit
+ret
